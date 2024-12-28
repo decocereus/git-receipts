@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { getDayOfWeek } from "@/lib/utils";
+import { getDayOfWeek, getTime } from "@/lib/utils";
 import Link from "next/link";
 import { GitHubStats } from "@/service/response";
 import AuthButton from "../auth";
@@ -15,13 +15,11 @@ function GitHubReceiptAnimated({
   receiptGeneratedOn,
   isLoggedIn = false,
   orderNumber,
-  servedAt,
 }: Readonly<{
   stats: GitHubStats;
   receiptGeneratedOn: string;
   isLoggedIn?: boolean;
   orderNumber: number;
-  servedAt: string;
 }>) {
   const [isPrinting, setIsPrinting] = useState(true);
   const receiptRef = useCallback((node: HTMLDivElement) => {
@@ -50,6 +48,7 @@ function GitHubReceiptAnimated({
       .slice(0, -1)
       .replaceAll("_", ", ");
   }, [stats]);
+  const servedAt = useMemo(() => getTime(), []);
 
   useEffect(() => {
     let timer: any;
