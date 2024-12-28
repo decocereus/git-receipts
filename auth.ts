@@ -9,7 +9,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GITHUB_SECRET!,
       authorization: {
         params: {
-          scope: "repo read:user user:email",
+          scope: "read:user user:email repo read:org",
+          prompt: "consent",
         },
       },
     }),
@@ -19,6 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account) {
         token.accessToken = account.access_token;
       }
+      console.log("Access Token:", token.accessToken);
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
@@ -27,8 +29,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         accessToken: token.accessToken as string,
       };
     },
-  },
-  pages: {
-    signIn: "/",
   },
 });

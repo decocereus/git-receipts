@@ -76,3 +76,22 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes print {
+  0% {
+    transform: translateY(-95%);
+  }
+  35% {
+    transform: translateY(-50%);
+  }
+  70% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-print {
+  animation: print 2.5s 500ms forwards;
+}

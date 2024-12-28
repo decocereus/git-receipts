@@ -67,6 +67,7 @@ class GithubService {
     since: string
   ): Promise<{ total: number; private: number; public: number; details: any }> {
     const searchQuery = `author:${username} is:pr created:>${since}`;
+
     const getPullRequestCountQuery = `
       query ($username: String!) {
         search(query: "${searchQuery}", type: ISSUE, first: 100) {
@@ -129,6 +130,13 @@ class GithubService {
         return acc;
       }, {}),
     };
+
+    console.log("PRs", {
+      total: data.search.issueCount,
+      private: privatePRs,
+      public: publicPRs,
+      details,
+    });
 
     return {
       total: data.search.issueCount,
@@ -202,15 +210,11 @@ class GithubService {
       result.user.contributionsCollection.contributionCalendar.weeks.flatMap(
         (week: any) => week.contributionDays
       );
-
-    // Find day with most contributions
     const maxContributionDay = days.reduce(
       (max: ContributionDay, day: ContributionDay) =>
         day.contributionCount > max.contributionCount ? day : max,
       days[0]
     );
-
-    // Calculate contributions by day of week
     const contributionsByDay = days.reduce(
       (acc: Record<number, number>, day: ContributionDay) => {
         acc[day.weekday] = (acc[day.weekday] || 0) + day.contributionCount;
@@ -224,6 +228,20 @@ class GithubService {
         (count as number) > (max[1] as number) ? [day, count] : max,
       ["0", 0]
     );
+
+    console.log("Contribution Stats", {
+      totalContributions:
+        result.user.contributionsCollection.contributionCalendar
+          .totalContributions,
+      mostProductiveDay: {
+        date: maxContributionDay.date,
+        count: maxContributionDay.contributionCount,
+      },
+      mostActiveWeekday: {
+        day: Number(mostActiveDay[0]),
+        totalContributions: mostActiveDay[1],
+      },
+    });
 
     return {
       totalContributions:
@@ -251,8 +269,6 @@ class GithubService {
 
     const languages = new Map<string, { color: string; size: number }>();
     let totalSize = 0;
-
-    // Aggregate languages across all repositories
     result.user.repositories.nodes.forEach((repo: any) => {
       repo.languages.edges.forEach((edge: any) => {
         const { name, color } = edge.node;
@@ -267,8 +283,7 @@ class GithubService {
       });
     });
 
-    // Convert to array and calculate percentages
-    return Array.from(languages.entries())
+    const formattedTopLanguages = Array.from(languages.entries())
       .map(([name, { color, size }]) => ({
         name,
         color,
@@ -277,6 +292,9 @@ class GithubService {
       }))
       .sort((a, b) => b.size - a.size)
       .slice(0, 10);
+
+    console.log("Top Languages", formattedTopLanguages);
+    return formattedTopLanguages;
   }
 
   public static async fetchGitHubStats(

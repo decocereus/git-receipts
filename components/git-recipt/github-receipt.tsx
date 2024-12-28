@@ -5,22 +5,30 @@ import {
   getDayOfWeek,
 } from "@/lib/utils";
 import { GitHubStats } from "@/service/response";
+import Link from "next/link";
+import AuthButton from "../auth";
 
 export default function GitHubReceipt({
   stats,
-}: Readonly<{ stats?: GitHubStats }>) {
-  const receiptGeneratedOn = formatDateFull(new Date().toLocaleDateString());
+  isLoggedIn = false,
+}: Readonly<{ stats?: GitHubStats; isLoggedIn?: boolean }>) {
+  const receiptGeneratedOn = formatDateFull(new Date());
   const topLang = "";
   const topLanguages = stats?.topLanguages
     ?.slice(0, 3)
     .reduce((acc, curr) => acc + `${curr?.name}_`, topLang);
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-white p-8 font-mono text-sm space-y-6 rounded-sm">
+      <Card className="w-full max-w-md bg-white p-8 font-mono text-sm space-y-4 rounded-sm">
         <div className="text-center space-y-2">
           <h1 className="text-xl font-bold">GITHUB RECEIPT</h1>
           <p>{receiptGeneratedOn}</p>
-          <p>ORDER #{generateReceiptNumber()}</p>
+          {isLoggedIn ? (
+            <p>ORDER #{generateReceiptNumber()}</p>
+          ) : (
+            <AuthButton />
+          )}
+
           <p className="text-xs">(2024 in review)</p>
         </div>
 
@@ -62,9 +70,7 @@ export default function GitHubReceipt({
             <span>MOST ACTIVE DAY:</span>
             <span>
               {getDayOfWeek(
-                new Date(
-                  stats?.contributions?.mostProductiveDay?.date
-                ).toLocaleDateString()
+                new Date(stats?.contributions?.mostProductiveDay?.date)
               )}
             </span>
           </div>
@@ -101,12 +107,15 @@ export default function GitHubReceipt({
 
         <div className="text-center pt-4">
           <p className="font-bold">THANK YOU FOR CODING!</p>
+          <AuthButton type="signout" />
         </div>
 
         <div className="pt-4 text-center">
           <div className="inline-block">
             <div className="h-12 bg-[linear-gradient(90deg,_#000_3px,_transparent_3px),linear-gradient(90deg,_#000_1px,_transparent_1px)] bg-[length:4px_100%,_2px_100%] w-64"></div>
-            <p className="text-xs pt-2">github.com/{stats?.user?.login}</p>
+            <Link href={stats?.user?.html_url}>
+              <p className="text-xs pt-2">github.com/{stats?.user?.login}</p>
+            </Link>
           </div>
         </div>
       </Card>

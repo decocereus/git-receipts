@@ -94,3 +94,22 @@ export interface LanguageStats {
   size: number;
   percentage: number;
 }
+
+export interface PullRequestStats {
+  total: number;
+  private: number;
+  public: number;
+  organizational: number;
+  details: {
+    byRepository: Record<
+      string,
+      {
+        isPrivate: boolean;
+        isOrganizational: boolean;
+        count: number;
+        states: Record<string, number>;
+      }
+    >;
+    byState: Record<string, number>;
+  };
+}
