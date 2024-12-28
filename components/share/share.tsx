@@ -39,7 +39,7 @@ const ShareReceipt = ({
     try {
       const canvas = await html2canvas(receiptElement, {
         backgroundColor: null,
-        scale: 2,
+        scale: 4,
       });
 
       canvas.toBlob(async (blob) => {
@@ -54,7 +54,7 @@ const ShareReceipt = ({
             await navigator.share({
               files: [file],
               title: "My GitHub Receipt",
-              text: "Check out my GitHub stats!",
+              text: `My 2024 Git Wrapped, find out yours at ${"https://gitreceipts.vercel.app/"}`,
             });
           } catch (error) {
             console.error("Error sharing:", error);
