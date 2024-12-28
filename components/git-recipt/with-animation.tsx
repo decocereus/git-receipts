@@ -74,7 +74,7 @@ function GitHubReceiptAnimated({
             >
               <div className="space-y-2">
                 <div className="text-center space-y-1">
-                  <h1 className="text-xl font-bold">GITHUB RECEIPT</h1>
+                  <h1 className="text-xl font-bold">GIT WRAP</h1>
                   <p>{receiptGeneratedOn}</p>
                   {isLoggedIn ? (
                     <p className="opacity-80">ORDER #{orderNumber}</p>
@@ -160,7 +160,6 @@ function GitHubReceiptAnimated({
 
                 <div className="text-center pt-4">
                   <p className="font-bold">THANK YOU FOR CODING!</p>
-                  <AuthButton type="signout" />
                 </div>
 
                 <div className="pt-2 text-center">
@@ -178,7 +177,9 @@ function GitHubReceiptAnimated({
           </div>
         </div>
       </div>
-      <ShareReceipt receiptElement={receiptElement} stats={stats} />
+      {isLoggedIn && (
+        <ShareReceipt receiptElement={receiptElement} stats={stats} />
+      )}
     </div>
   );
 }

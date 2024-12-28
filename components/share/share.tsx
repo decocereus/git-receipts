@@ -5,6 +5,7 @@ import { Button } from "../ui/button/button";
 import { GitHubStats } from "@/service/response";
 import html2canvas from "html2canvas";
 import { Download, Share2 } from "lucide-react";
+import AuthButton from "../auth";
 
 const ShareReceipt = ({
   receiptElement,
@@ -71,6 +72,7 @@ const ShareReceipt = ({
   };
   return (
     <div className="flex gap-2 mt-4">
+      <AuthButton type="signout" />
       <Button
         onClick={handleDownload}
         className="flex items-center gap-2"
