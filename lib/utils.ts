@@ -37,15 +37,7 @@ export function getDayOfWeek(date: Date): string {
 
 export function getTime(): string {
   const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-
-  // Format time as HH:MM:SS
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-    2,
-    "0"
-  )}:${String(seconds).padStart(2, "0")}`;
+  return date.toLocaleTimeString("en-US", { hour12: true });
 }
 
 export const SAMPLE_STATS: GitHubStats = {
