@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { getDayOfWeek, getTime } from "@/lib/utils";
 import Link from "next/link";
