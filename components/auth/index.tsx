@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "../ui/button/button";
-import { signIn, signOut } from "@/auth";
 import { initSignIn, initSignOut } from "@/actions";
 
 const AuthButton = ({ type = "signin" }: { type?: "signin" | "signout" }) => {
