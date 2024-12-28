@@ -3,6 +3,7 @@ import GithubService from "@/service";
 import {
   formatDateFull,
   generateReceiptNumber,
+  getTime,
   SAMPLE_STATS,
 } from "@/lib/utils";
 import GitHubWrapped from "@/components/top-section";
@@ -17,6 +18,7 @@ export default async function Home() {
   const stats = await GithubService.fetchGitHubStats("year");
   const receiptGeneratedOn = formatDateFull(new Date());
   const orderNumber = generateReceiptNumber();
+  const servedAt = getTime();
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-6">
       <GitHubWrapped />
@@ -28,6 +30,7 @@ export default async function Home() {
               isLoggedIn={isLoggedIn}
               receiptGeneratedOn={receiptGeneratedOn}
               orderNumber={orderNumber}
+              servedAt={servedAt}
             />
           </div>
         ) : (
@@ -38,6 +41,7 @@ export default async function Home() {
                 isLoggedIn={isLoggedIn}
                 receiptGeneratedOn={receiptGeneratedOn}
                 orderNumber={orderNumber}
+                servedAt={servedAt}
               />
             )}
           </>

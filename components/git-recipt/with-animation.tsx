@@ -15,13 +15,16 @@ function GitHubReceiptAnimated({
   receiptGeneratedOn,
   isLoggedIn = false,
   orderNumber,
+  servedAt,
 }: Readonly<{
   stats: GitHubStats;
   receiptGeneratedOn: string;
   isLoggedIn?: boolean;
   orderNumber: number;
+  servedAt: string;
 }>) {
   const [isPrinting, setIsPrinting] = useState(true);
+  const [clientServedAt, setClientServedAt] = useState(servedAt);
   const receiptRef = useCallback((node: HTMLDivElement) => {
     if (node !== null) {
       setReceiptElement(node);
@@ -48,10 +51,10 @@ function GitHubReceiptAnimated({
       .slice(0, -1)
       .replaceAll("_", ", ");
   }, [stats]);
-  const servedAt = useMemo(() => getTime(), []);
 
   useEffect(() => {
     let timer: any;
+    setClientServedAt(getTime());
     if (!isPrinting) timer = setTimeout(() => startPrinting(), 500);
     return () => clearTimeout(timer);
   }, []);
@@ -144,8 +147,9 @@ function GitHubReceiptAnimated({
 
                 <div className=" border-t border-dashed py-1 space-y-1"></div>
                 <div className="text-center space-y-1 py-4">
-                  <p>Served at: {servedAt}</p>
+                  <p>Served at: {clientServedAt}</p>
                 </div>
+
                 <div className=" border-b border-dashed py-1 space-y-1"></div>
 
                 <div className="space-y-0.5 text-sm pt-2">
