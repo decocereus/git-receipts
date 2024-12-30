@@ -6,9 +6,9 @@ import { Card } from "@/components/ui/card";
 import { getDayOfWeek, getTime } from "@/lib/utils";
 import Link from "next/link";
 import { GitHubStats } from "@/service/response";
-import AuthButton from "../auth";
 import ShareReceipt from "../share/share";
 import QrCode from "./qr-code";
+import AuthButton from "../auth";
 
 function GitHubReceiptAnimated({
   stats,
@@ -60,7 +60,15 @@ function GitHubReceiptAnimated({
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 transition-all duration-500">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 gap-y-2 transition-all duration-500">
+      {isLoggedIn ? (
+        <>
+          <AuthButton />
+          <ShareReceipt receiptElement={receiptElement} stats={stats} />
+        </>
+      ) : (
+        <AuthButton />
+      )}
       <div className="max-w-[385px] w-full">
         <div className="flex flex-col items-center mb-1 relative">
           <div className="w-[95%] sm:w-[90%] h-6 border-[5px] border-white bg-black rounded-lg shadow-md mb-[-10px]" />
@@ -76,10 +84,8 @@ function GitHubReceiptAnimated({
                 <div className="text-center space-y-1">
                   <h1 className="text-xl font-bold">GIT WRAP</h1>
                   <p>{receiptGeneratedOn}</p>
-                  {isLoggedIn ? (
+                  {isLoggedIn && (
                     <p className="opacity-80">ORDER #{orderNumber}</p>
-                  ) : (
-                    <AuthButton />
                   )}
                   <p className="text-xs">(2024 in review)</p>
                 </div>
@@ -177,9 +183,6 @@ function GitHubReceiptAnimated({
           </div>
         </div>
       </div>
-      {isLoggedIn && (
-        <ShareReceipt receiptElement={receiptElement} stats={stats} />
-      )}
     </div>
   );
 }
