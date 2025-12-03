@@ -17,19 +17,19 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Git Receipts",
-  description: "Yearly wrapped for developers",
+  description: "Github wrapped for the this year served as a receipt",
   openGraph: {
     title: "Git Receipts",
-    description: "Yearly wrapped for developers",
+    description: "Github wrapped for the this year served as a receipt",
     url: "https://gitreceipts.vercel.app",
-    images: "https://gitreceipts.vercel.app/git-wrap-meta.png",
+    images: "https://gitreceipts.vercel.app/receipts-meta.jpeg",
     siteName: "Git Receipts",
   },
   twitter: {
     card: "summary_large_image",
     title: "Git Receipts",
-    description: "Yearly wrapped for developers",
-    images: "https://gitreceipts.vercel.app/git-wrap-meta.png",
+    description: "Github wrapped for the this year served as a receipt",
+    images: "https://gitreceipts.vercel.app/receipts-meta.jpeg",
   },
 };
 
