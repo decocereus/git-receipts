@@ -18,7 +18,7 @@ const AuthButton = ({ type = "signin" }: { type?: "signin" | "signout" }) => {
     >
       <Button
         variant={logoutAction ? "ghost" : "outline"}
-        className={cn(logoutAction ? "" : "bg-sky-300 font-semibold")}
+        className={cn(logoutAction ? "" : " font-semibold")}
       >
         {logoutAction && <LogOut size={16} />}
         {logoutAction ? "Logout" : "Place your order!"}

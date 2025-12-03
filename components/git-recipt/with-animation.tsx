@@ -69,7 +69,7 @@ function GitHubReceiptAnimated({
       ) : (
         <AuthButton />
       )}
-      <div className="max-w-96 w-full">
+      <div className="max-w-[30rem] w-full">
         <div className="flex flex-col items-center mb-1 relative w-full">
           <div className="w-[95%] sm:w-[90%] h-6 border-[5px] border-white bg-black rounded-lg shadow-md mb-[-10px]" />
         </div>

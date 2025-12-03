@@ -24,8 +24,11 @@ export default function GitHubWrapped() {
       <div className="flex items-start sm:items-center gap-x-3 text-sm text-muted-foreground flex-col sm:flex-row">
         <Link href={"https://x.com/decocereus"} target="_blank">
           <Button variant="ghost" size="sm" className="gap-2">
-            <AtSign className="h-4 w-4" />
-            <span className="flex items-center gap-2">Built by Amartya</span>
+            Built by
+            <span className="flex items-center gap-0.5">
+              <AtSign className="h-4 w-4" />
+              decocereus
+            </span>
           </Button>
         </Link>
 
