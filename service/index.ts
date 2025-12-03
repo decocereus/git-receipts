@@ -14,7 +14,7 @@ class GithubService {
   public static async getCommitCount(
     octokit: Octokit,
     username: string,
-    since: string
+    since: string,
   ): Promise<{ total: number; private: number; public: number }> {
     const result = await octokit.graphql(getCommitCountQuery, {
       username,
@@ -27,14 +27,14 @@ class GithubService {
       .filter((repo: any) => repo.repository.isPrivate)
       .reduce(
         (acc: number, curr: any) => acc + curr.contributions.totalCount,
-        0
+        0,
       );
 
     const publicCommits = contributions.commitContributionsByRepository
       .filter((repo: any) => !repo.repository.isPrivate)
       .reduce(
         (acc: number, curr: any) => acc + curr.contributions.totalCount,
-        0
+        0,
       );
     const total =
       contributions.totalCommitContributions +
@@ -50,7 +50,7 @@ class GithubService {
           repo: repo.repository.nameWithOwner,
           isPrivate: repo.repository.isPrivate,
           commits: repo.contributions.totalCount,
-        })
+        }),
       ),
     });
 
@@ -64,7 +64,7 @@ class GithubService {
   public static async getPullRequestCount(
     octokit: Octokit,
     username: string,
-    since: string
+    since: string,
   ): Promise<{ total: number; private: number; public: number; details: any }> {
     const searchQuery = `author:${username} is:pr created:>${since}`;
 
@@ -148,7 +148,7 @@ class GithubService {
 
   public static async getRepositoryStats(
     octokit: Octokit,
-    username: string
+    username: string,
   ): Promise<{
     created: { total: number; private: number; public: number };
     contributed: { total: number; private: number; public: number };
@@ -199,7 +199,7 @@ class GithubService {
   public static async getContributionStats(
     octokit: Octokit,
     username: string,
-    since: string
+    since: string,
   ) {
     const result: any = await octokit.graphql(contributionStatsQuery, {
       username,
@@ -208,25 +208,25 @@ class GithubService {
 
     const days =
       result.user.contributionsCollection.contributionCalendar.weeks.flatMap(
-        (week: any) => week.contributionDays
+        (week: any) => week.contributionDays,
       );
     const maxContributionDay = days.reduce(
       (max: ContributionDay, day: ContributionDay) =>
         day.contributionCount > max.contributionCount ? day : max,
-      days[0]
+      days[0],
     );
     const contributionsByDay = days.reduce(
       (acc: Record<number, number>, day: ContributionDay) => {
         acc[day.weekday] = (acc[day.weekday] || 0) + day.contributionCount;
         return acc;
       },
-      {}
+      {},
     );
 
     const mostActiveDay = Object.entries(contributionsByDay).reduce(
       (max, [day, count]) =>
         (count as number) > (max[1] as number) ? [day, count] : max,
-      ["0", 0]
+      ["0", 0],
     );
 
     console.log("Contribution Stats", {
@@ -260,7 +260,7 @@ class GithubService {
 
   public static async getTopLanguages(
     octokit: Octokit,
-    username: string
+    username: string,
   ): Promise<LanguageStats[]> {
     const result: any = await octokit.graphql(topLanguagesQuery, {
       username,
@@ -298,7 +298,7 @@ class GithubService {
   }
 
   public static async fetchGitHubStats(
-    timeframe: "year" | "lifetime" = "year"
+    timeframe: "year" | "lifetime" = "year",
   ): Promise<GitHubStats | undefined> {
     const session = await auth();
     if (!session?.accessToken) return undefined;
@@ -315,7 +315,7 @@ class GithubService {
 
     const adjustedTimeframe =
       timeframe === "year"
-        ? getDateFilter(timeframe) ?? "2024-01-01"
+        ? (getDateFilter(timeframe) ?? "2025-01-01")
         : user?.created_at;
 
     const stats = await Promise.all([
@@ -326,7 +326,7 @@ class GithubService {
       GithubService.getContributionStats(
         octokit,
         user.login,
-        adjustedTimeframe
+        adjustedTimeframe,
       ),
     ]);
     return {

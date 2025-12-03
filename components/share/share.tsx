@@ -54,7 +54,7 @@ const ShareReceipt = ({
             await navigator.share({
               files: [file],
               title: "My GitHub Receipt",
-              text: `My 2024 Git Wrapped, find out yours at ${"https://gitreceipts.vercel.app/"}`,
+              text: `My 2025 Git Wrapped, find out yours at ${"https://gitreceipts.vercel.app/"}`,
             });
           } catch (error) {
             console.error("Error sharing:", error);

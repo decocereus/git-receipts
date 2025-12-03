@@ -31,7 +31,7 @@ function GitHubReceiptAnimated({
     }
   }, []);
   const [receiptElement, setReceiptElement] = useState<HTMLElement | null>(
-    null
+    null,
   );
 
   const startPrinting = () => {
@@ -69,12 +69,12 @@ function GitHubReceiptAnimated({
       ) : (
         <AuthButton />
       )}
-      <div className="max-w-[385px] w-full">
-        <div className="flex flex-col items-center mb-1 relative">
+      <div className="max-w-96 w-full">
+        <div className="flex flex-col items-center mb-1 relative w-full">
           <div className="w-[95%] sm:w-[90%] h-6 border-[5px] border-white bg-black rounded-lg shadow-md mb-[-10px]" />
         </div>
 
-        <div className="overflow-hidden -mt-2.5 pb-2.5">
+        <div className="overflow-hidden -mt-2.5 pb-2.5 w-full">
           <div className="receipts w-full flex flex-col items-center transform -translate-y-[95%] animate-print">
             <Card
               className="w-full sm:w-[88%] bg-gray-50  p-4 sm:p-8 font-mono text-sm rounded-md shadow-lg mb-2"
@@ -87,7 +87,7 @@ function GitHubReceiptAnimated({
                   {isLoggedIn && (
                     <p className="opacity-80">ORDER #{orderNumber}</p>
                   )}
-                  <p className="text-xs">(2024 in review)</p>
+                  <p className="text-xs">(2025 in review)</p>
                 </div>
 
                 <div className="border-t border-b border-dashed py-4 space-y-1">
@@ -130,7 +130,7 @@ function GitHubReceiptAnimated({
                     <span>MOST ACTIVE DAY:</span>
                     <span>
                       {getDayOfWeek(
-                        new Date(stats?.contributions?.mostProductiveDay?.date)
+                        new Date(stats?.contributions?.mostProductiveDay?.date),
                       )}
                     </span>
                   </div>
@@ -159,7 +159,7 @@ function GitHubReceiptAnimated({
                 <div className=" border-b border-dashed py-1 space-y-1"></div>
 
                 <div className="space-y-0.5 text-sm pt-2">
-                  <p>CARD #: **** **** **** 2024</p>
+                  <p>CARD #: **** **** **** 2025</p>
                   <p>AUTH CODE: {stats?.user?.id}</p>
                   <p className="uppercase">CARDHOLDER: {stats?.user?.login}</p>
                 </div>

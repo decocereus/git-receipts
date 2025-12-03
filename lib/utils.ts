@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getDateFilter(timeframe: "year" | "lifetime"): string | null {
   if (timeframe === "year") {
-    const date = new Date(1704067200000);
+    const date = new Date(1735689600000);
     return date.toISOString();
   }
   return null;

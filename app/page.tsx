@@ -9,7 +9,7 @@ import {
 import GitHubWrapped from "@/components/top-section";
 import dynamic from "next/dynamic";
 const GitHubReceiptAnimated = dynamic(
-  () => import("@/components/git-recipt/with-animation")
+  () => import("@/components/git-recipt/with-animation"),
 );
 
 export default async function Home() {
@@ -23,29 +23,13 @@ export default async function Home() {
     <div className="min-h-screen bg-gray-50 py-12 px-6">
       <GitHubWrapped />
       <div className="max-w-7xl mx-auto">
-        {!session ? (
-          <div className="flex flex-col items-center justify-center">
-            <GitHubReceiptAnimated
-              stats={SAMPLE_STATS}
-              isLoggedIn={isLoggedIn}
-              receiptGeneratedOn={receiptGeneratedOn}
-              orderNumber={orderNumber}
-              servedAt={servedAt}
-            />
-          </div>
-        ) : (
-          <>
-            {stats && (
-              <GitHubReceiptAnimated
-                stats={stats}
-                isLoggedIn={isLoggedIn}
-                receiptGeneratedOn={receiptGeneratedOn}
-                orderNumber={orderNumber}
-                servedAt={servedAt}
-              />
-            )}
-          </>
-        )}
+        <GitHubReceiptAnimated
+          stats={session && stats ? stats : SAMPLE_STATS}
+          isLoggedIn={isLoggedIn}
+          receiptGeneratedOn={receiptGeneratedOn}
+          orderNumber={orderNumber}
+          servedAt={servedAt}
+        />
       </div>
     </div>
   );

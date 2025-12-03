@@ -29,7 +29,7 @@ export default function GitHubReceipt({
             <AuthButton />
           )}
 
-          <p className="text-xs">(2024 in review)</p>
+          <p className="text-xs">(2025 in review)</p>
         </div>
 
         <div className="border-t border-b border-dashed py-4 space-y-2">
@@ -70,7 +70,7 @@ export default function GitHubReceipt({
             <span>MOST ACTIVE DAY:</span>
             <span>
               {getDayOfWeek(
-                new Date(stats?.contributions?.mostProductiveDay?.date)
+                new Date(stats?.contributions?.mostProductiveDay?.date),
               )}
             </span>
           </div>
@@ -100,7 +100,7 @@ export default function GitHubReceipt({
         </div>
 
         <div className="space-y-1 text-sm">
-          <p>CARD #: **** **** **** 2024</p>
+          <p>CARD #: **** **** **** 2025</p>
           <p>AUTH CODE: 536869</p>
           <p className="uppercase">CARDHOLDER: {stats?.user?.login}</p>
         </div>
